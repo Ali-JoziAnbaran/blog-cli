@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <Header></Header>
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div class="content">
+      <SideBar></SideBar>
+      <HelloWorld msg="Welcome to Your Vue.js App" />
+    </div>
     <Footer></Footer>
   </div>
 </template>
@@ -11,13 +13,15 @@
 import HelloWorld from "./components/HelloWorld.vue";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
+import SideBar from "./components/SideBar.vue";
 
 export default {
   name: "App",
   components: {
     HelloWorld,
     Header,
-    Footer
+    Footer,
+    SideBar,
   },
 };
 </script>
@@ -29,5 +33,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.content {
+  display: flex;
+  flex-direction: row;
+}
+ul{
+  list-style-type: none;
 }
 </style>
