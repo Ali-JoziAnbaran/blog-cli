@@ -1,10 +1,8 @@
 <template>
   <div class="header">
-    <ul>
-      <li>Home</li>
-      <li>Services</li>
-      <li>Contact</li>
-      <li>About</li>
+    <ul class="nav">
+      <li><router-link to="/">Home</router-link></li>
+      <li><router-link to="/about">About</router-link></li>
     </ul>
   </div>
 </template>
@@ -34,4 +32,9 @@ li {
   float: left;
   padding: 20px 30px;
 }
+.nav .router-link-exact-active {
+   color: #000;
+   background: red;
+   text-decoration: none;
+ }
 </style>

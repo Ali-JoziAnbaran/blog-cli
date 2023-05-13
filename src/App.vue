@@ -2,28 +2,23 @@
   <div id="app">
     <Header></Header>
     <div class="content">
-      <SideBar></SideBar>
-      <HelloWorld msg="Welcome to Your Vue.js App" />
+      <router-view/>
     </div>
     <Footer></Footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
-import SideBar from "./components/SideBar.vue";
+    import Header from "./components/Header.vue";
+    import Footer from "./components/Footer.vue";
 
-export default {
-  name: "App",
-  components: {
-    HelloWorld,
-    Header,
-    Footer,
-    SideBar,
-  },
-};
+    export default {
+        name: "AppView",
+        components: {
+            Header,
+            Footer,
+        },
+    };
 </script>
 
 <style>
