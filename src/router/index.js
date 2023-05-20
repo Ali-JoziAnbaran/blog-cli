@@ -24,7 +24,7 @@ const routes = [
         component: PostsView
     },
     {
-        path: '/admin/posts/:id',
+        path: '/posts/:id',
         name: 'posts',
         component: SinglePostView
     },

@@ -17,7 +17,7 @@
                     v-for="post in posts"
                     :key="post.id"
                 >
-					<router-link :to="`/admin/posts/${post.id}`">
+					<router-link :to="`/posts/${post.id}`">
                         <b-row no-gutters>
                             <b-col md="4">
                                 <b-card-img

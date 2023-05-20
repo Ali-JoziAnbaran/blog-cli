@@ -75,7 +75,7 @@
                     <b-table hover :items="table" :fields="tableCells">
                         <template v-slot:cell(name)="{ item }">
                             <span>
-                                <router-link :to="`/admin/posts/${item.id}`">{{item.name}}</router-link>
+                                <router-link :to="`/posts/${item.id}`">{{item.name}}</router-link>
                             </span>
                         </template>
                         <template v-slot:cell(edit)="{ item }">
