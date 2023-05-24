@@ -126,41 +126,24 @@ export default {
         onSubmit(event) {
             event.preventDefault();
             if (!this.checkValidation(this.form)) return false;
-            const allPosts = localStorage.getItem("posts")
-                ? JSON.parse(localStorage.getItem("posts"))
-                : [];
             if (this.editId) {
-                const editRow = allPosts.find(
-                    (post) => post.id === this.editId
-                );
-                editRow.name = this.form.name;
-                editRow.slug = this.form.slug;
-                editRow.description = this.form.description;
+                this.$store.commit('updatePost', {
+                    ...this.form,
+                    editId: this.editId
+                });
+                this.editId = '';
 
                 this.makeToast("Post has been updated.", "primary");
             } else {
-                allPosts.push({ ...this.form, id: this.generateId() });
+                this.$store.commit('addPost', {
+                    ...this.form
+                });
                 this.makeToast("Post has been added.", "primary");
             }
-            localStorage.setItem("posts", JSON.stringify(allPosts));
+            this.fetchTable();
             this.form.name = "";
             this.form.slug = "";
             this.form.description = "";
-            this.fetchTable();
-        },
-        generateId(){
-            const allPosts = localStorage.getItem("posts")
-                ? JSON.parse(localStorage.getItem("posts"))
-                : null;
-            if(allPosts){
-                let newId = Math.floor((Math.random() * 10000) + 1);
-                while(allPosts.find(post => post.id === newId)){
-                    newId = Math.floor((Math.random() * 10000) + 1);
-                }
-                return newId;
-            }else{
-                return 1;
-            }
         },
         onReset(event) {
             event.preventDefault();
@@ -216,6 +199,9 @@ export default {
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    this.$store.commit('removePost', {
+                        id: row.id
+                    });
                     const allPosts = JSON.parse(localStorage.getItem("posts"));
                     localStorage.setItem("posts", JSON.stringify(allPosts.filter(post => post.id !== row.id)));
                     this.$swal('Deleted!', '', 'success')
@@ -224,9 +210,7 @@ export default {
             })
         },
         fetchTable() {
-            const allPosts = localStorage.getItem("posts")
-                ? JSON.parse(localStorage.getItem("posts"))
-                : null;
+            const allPosts = this.$store.state.posts;
             const tablePosts = [];
             if (allPosts) {
                 allPosts.map((post) => {
@@ -247,6 +231,12 @@ export default {
         "form.name": function (newVal) {
             this.form.slug = newVal.replace(/\s+/g, "-").toLowerCase();
         },
+    },
+    computed: {
+        posts: function() {
+            this.fetchTable();
+            return this.$store.state.posts;
+        }
     },
     mounted() {
         this.fetchTable();

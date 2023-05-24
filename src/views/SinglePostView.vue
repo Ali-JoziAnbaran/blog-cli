@@ -12,19 +12,14 @@
 </template>
 
 <script>
+
 export default {
     name: "SinglePostsView",
-    data: function () {
-        return {
-            post: {},
-        };
-    },
-    mounted() {
-        const allPosts = localStorage.getItem("posts")
-                ? JSON.parse(localStorage.getItem("posts"))
-                : [];
-        this.post = allPosts.find(post => post.id == this.$route.params.id );
-    },
+    computed: {
+        post: function(){
+            return this.$store.getters.singlePostData(this.$route.params.id);
+        }
+    }
 };
 </script>
 <style scoped>

@@ -64,9 +64,7 @@ export default {
     },
     computed: {
         posts: function () {
-            return localStorage.getItem("posts")
-                ? JSON.parse(localStorage.getItem("posts"))
-                : [];
+            return this.$store.state.posts;
         },
     },
 };
